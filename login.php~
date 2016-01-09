@@ -7,8 +7,6 @@ session_start();
 if(isset( $_SESSION['user_id'] ))
 {
     $message = 'Users is already logged in';
-    echo 'yoyoyo';
-    echo $_SESSION['user_id'];
 }
 /*** check that both the username, password have been submitted ***/
 if(!isset( $_POST['username'], $_POST['passwd']))
@@ -51,13 +49,13 @@ else
     $mysql_hostname = 'localhost';
 
     /*** mysql username ***/
-    $mysql_username = 'mysql_username';
+    $mysql_username = 'root';
 
     /*** mysql password ***/
-    $mysql_password = 'mysql_password';
+    $mysql_password = 'project';
 
     /*** database name ***/
-    $mysql_dbname = 'phpro_auth';
+    $mysql_dbname = 'basic_classes';
 
     try
     {
@@ -68,7 +66,7 @@ else
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         /*** prepare the select statement ***/
-        $stmt = $dbh->prepare("SELECT user_id, username, passwd FROM phpro_users 
+        $stmt = $dbh->prepare("SELECT user_id, username, passwd FROM Login 
                     WHERE username = :username AND passwd = :passwd");
 
         /*** bind the parameters ***/
@@ -79,7 +77,7 @@ else
         $stmt->execute();
 
         /*** check for a result ***/
-        $user_id = $stmt->fetchColumn();
+        $user_id = $stmt->fetchColumn(1);
 
         /*** if we have no result then fail boat ***/
         if($user_id == false)
@@ -111,6 +109,6 @@ else
 <title>PHPRO Login</title>
 </head>
 <body>
-<p><?php echo $message; ?>
+<p><?php echo $message;?>
 </body>
 </html>

@@ -42,7 +42,7 @@ else
     $passwd = filter_var($_POST['passwd'], FILTER_SANITIZE_STRING);
 
     /*** now we can encrypt the password ***/
-    $passwd = sha1( $passwd );
+   /*passwd = sha1( $passwd );*/
     
     /*** connect to database ***/
     /*** mysql hostname ***/
